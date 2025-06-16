@@ -1,14 +1,14 @@
 Informācija par lietotni:
-  •	Ietvars: .NET MAUI 9
-  •	Papildus pakotnes:
-    o	CommunityToolkit.Maui – Izmantots, lai paplašinātu UX elementu skaitu
-    o	MongoDB.Driver – izmantots, lai datus turētu datubāzē 
-    o	Otp.NET – izmantots, lai ģenerētu TOTP kodus pēc RFC 6238 standarta
-    o QRCoder – izmantots, lai ģenerētu un nolasītu QR kodus
-  •	Drošība – dati tiek glabāti šifrēti izmantojot AES-128-CBC, izmantojot PBKDF2 funkciju, lai ģenerētu atslēgu no lietotāja paroles un izmantotu daļu no rezultāta kā šifrēšanas atslēgu
-  •	Testētās operētājsistēmas: 
-    o	Windows 11
-    o	Android 13/14/15 ar One UI 7/8/9 (Samsung skin)
+*	Ietvars: .NET MAUI 9
+*	Papildus pakotnes:
+    * CommunityToolkit.Maui – Izmantots, lai paplašinātu UX elementu skaitu
+    * MongoDB.Driver – izmantots, lai datus turētu datubāzē 
+    *	Otp.NET – izmantots, lai ģenerētu TOTP kodus pēc RFC 6238 standarta
+    * QRCoder – izmantots, lai ģenerētu un nolasītu QR kodus
+*	Drošība – dati tiek glabāti šifrēti izmantojot AES-128-CBC, izmantojot PBKDF2 funkciju, lai ģenerētu atslēgu no lietotāja paroles un izmantotu daļu no rezultāta kā šifrēšanas atslēgu
+*	Testētās operētājsistēmas: 
+    *	Windows 11
+    *	Android 13/14/15 ar One UI 7/8/9 (Samsung skin)
 
 Kā uzstādīt lietotni no GitHub Repo
   0.	Uzstādīt Visual Studio 2022 ar .NET MAUI workload
