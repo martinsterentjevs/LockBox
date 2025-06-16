@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:local="clr-namespace:LockBox"
+               x:Class="LockBox.CopyOptionsPopup">
+    <toolkit:Popup.Resources>
+        <ResourceDictionary>
+            <local:StringToBooleanConverter x:Key="StringToBooleanConverter" />
+            <local:OtpToBooleanConverter x:Key="OtpToBooleanConverter" />
+        </ResourceDictionary>
+    </toolkit:Popup.Resources>
+    <VerticalStackLayout Padding="10" WidthRequest="160" Spacing="5">
+        <Button Text="Copy User" Clicked="OnCopyEmailClicked" />
+        <Button Text="Copy OTP" Clicked="OnCopyOtpCodeClicked"
+                IsEnabled="{Binding OtpCode, Converter={StaticResource OtpToBooleanConverter}}" />
+        <Button Text="Copy Password" Clicked="OnCopyPasswordClicked"
+                IsEnabled="{Binding Serv_password, Converter={StaticResource StringToBooleanConverter}}" />
+    </VerticalStackLayout>
+</toolkit:Popup>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="LockBox.AddScreen"
+             Title="AddScreen">
+    <ContentPage.Content>
+        <Grid RowSpacing="15" ColumnSpacing="15" BackgroundColor="{StaticResource OffBlack}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- AppBar Moment -->
+            <Grid BackgroundColor="{StaticResource Black}" Grid.Row="0" Grid.ColumnSpan="2">
+                <ImageButton x:Name="Back" Clicked="Back_Clicked" HorizontalOptions="Start" MinimumHeightRequest="25" MaximumHeightRequest="25" VerticalOptions="CenterAndExpand">
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="&#xe5e0;" FontFamily="MaterialIcons"/>
+                    </ImageButton.Source>
+                </ImageButton>
+                <Label Text="Add new entry" TextColor="{StaticResource SecondaryDarkText}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Title"/>
+            </Grid>
+
+            <!-- Main Content with Padding -->
+            <ContentView Grid.Row="1" Grid.RowSpan="10" Grid.ColumnSpan="2" Padding="15">
+                <Grid RowSpacing="15" ColumnSpacing="15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Service/Website Name -->
+                    <Entry x:Name="Serv" Placeholder="Name of service/website" 
+                           PlaceholderColor="{StaticResource Gray400}" 
+                           BackgroundColor="{StaticResource Gray600}" TextColor="{StaticResource Gray100}" 
+                           MaxLength="20" Grid.Row="0" Grid.ColumnSpan="2" />
+
+                    <!-- Email or Username -->
+                    <Entry x:Name="User" Placeholder="E-mail or username" 
+                           PlaceholderColor="{StaticResource Gray400}"
+                           BackgroundColor="{StaticResource Gray600}" TextColor="{StaticResource Gray100}"
+                           MaxLength="255" Grid.Row="1" Grid.ColumnSpan="2" />
+
+                    <!-- Password Section -->
+                    <Label Grid.Row="2" Grid.ColumnSpan="2" 
+                           Text="Generate a password" TextColor="{StaticResource Gray100}" VerticalOptions="StartAndExpand"/>
+                    <Grid Grid.Row="3" Grid.ColumnSpan="2" x:Name="PassGen">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Slider Grid.Column="0" VerticalOptions="Center" 
+                                x:Name="PasswordLengthSlider" HorizontalOptions="FillAndExpand" 
+                                Minimum="16" Maximum="64" Value="16" Margin="1" ValueChanged="OnSliderValueChanged"/>
+                        <Label Grid.Column="1" VerticalOptions="Center" HorizontalOptions="End" 
+                               x:Name="SliderValueLabel" Text="{Binding Source={x:Reference PasswordLengthSlider}, Path=Value}"
+                               TextColor="{StaticResource Gray100}"/>
+                        <Button Grid.Column="2" VerticalOptions="Center" 
+                                Text="Generate" Padding="5" CornerRadius="8" 
+                                Clicked="GeneratePassword_Clicked" HorizontalOptions="End" 
+                                BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource Gray100}"/>
+                    </Grid>
+                    <Grid x:Name="PasswordGen_Entry" Grid.Row="4" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Entry Grid.Column="0" 
+                               x:Name="Pass" Placeholder="Enter password" 
+                               VerticalOptions="Center" PlaceholderColor="{StaticResource Gray400}" 
+                               IsPassword="True" BackgroundColor="{StaticResource Gray600}" TextColor="{StaticResource Gray100}" HorizontalOptions="Fill" MinimumWidthRequest="300"/>
+                        <ImageButton 
+                            Grid.Column="1" VerticalOptions="Center" 
+                            Clicked="OnPasswordToggleClicked" CommandParameter="{x:Reference Pass}" 
+                            IsVisible="True" WidthRequest="25" HorizontalOptions="End">
+                            <ImageButton.Source>
+                                <FontImageSource Glyph="&#xE8F4;" FontFamily="MaterialIcons" Color="{StaticResource White}"/>
+                            </ImageButton.Source>
+                        </ImageButton>
+                        <ImageButton 
+                            Grid.Column="2" Clicked="CopyPass_Clicked" 
+                            BackgroundColor="{StaticResource SecondaryDarkText}" WidthRequest="25" HeightRequest="25">
+                            <ImageButton.Source>
+                                <FontImageSource Glyph="&#xe14d;" FontFamily="MaterialIcons" Color="{StaticResource White}"/>
+                            </ImageButton.Source>
+                        </ImageButton>
+                    </Grid>
+
+                    <!-- MFA Section -->
+                    <Label Grid.Row="5" x:Name="MFA_Notice"
+                           TextColor="{StaticResource Gray100}" Grid.ColumnSpan="2"/>
+                    <HorizontalStackLayout Grid.Row="6" Grid.ColumnSpan="2">
+                        <Entry Grid.Column="0" x:Name="MFA"  
+                               Placeholder="If unable to scan, enter prompt here" 
+                               PlaceholderColor="{StaticResource Gray400}" 
+                               BackgroundColor="{StaticResource Gray600}" TextColor="{StaticResource Gray100}" 
+                               IsPassword="True" HorizontalOptions="StartAndExpand" MinimumWidthRequest="310"/>
+                        <ImageButton Grid.Column="1" 
+                                     Clicked="OnPasswordToggleClicked" CommandParameter="{x:Reference MFA}" 
+                                     BorderColor="{StaticResource Gray400}" IsVisible="True" WidthRequest="25" 
+                                     HorizontalOptions="End">
+                            <ImageButton.Source>
+                                <FontImageSource Glyph="&#xE8F4;" FontFamily="MaterialIcons" Color="{StaticResource White}"/>
+                            </ImageButton.Source>
+                        </ImageButton>
+                    </HorizontalStackLayout>
+                    <Picker x:Name="AlgorithmPicker" Title="Select Algorithm" 
+                            Grid.Row="7" Grid.ColumnSpan="1" 
+                            BackgroundColor="{StaticResource Gray600}" TextColor="{StaticResource Gray100}" SelectedIndex="0">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>SHA1</x:String>
+                                <x:String>SHA256</x:String>
+                                <x:String>SHA512</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                    <Button Clicked="GoToScan" WidthRequest="70" Padding="0" 
+                            Text="Scan" BackgroundColor="{StaticResource Primary}" 
+                            TextColor="{StaticResource Gray100}" Grid.Row="7" Grid.Column="1"/>
+                    <Button Grid.Row="8" VerticalOptions="End" 
+                            Text="Add this entry" Clicked="Save_Clicked" 
+                            BackgroundColor="{StaticResource Primary}" 
+                            TextColor="{StaticResource Gray100}" Grid.ColumnSpan="2"/>
+                </Grid>
+            </ContentView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+

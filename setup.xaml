@@ -1,0 +1,63 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="LockBox.Setup"
+             >
+
+    <VerticalStackLayout Spacing="80" Padding="20" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource OffBlack}">
+        <Label Text="Let's get set up"
+               FontSize="32"
+               FontAttributes="None"
+               TextColor="{StaticResource PrimaryDark}"
+               HorizontalOptions="Center" />
+        <Label Text="Create a strong password (12-64 characters long).Use a combination of uppercase and lowercase letters, numbers, and symbols"
+               FontSize="Subtitle"
+               TextColor="{StaticResource Gray300}"
+               LineBreakMode="WordWrap" />
+        <Grid VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+            <Entry x:Name="MasterPassword"
+                   Placeholder="Master Password"
+                   IsPassword="True"
+                   Completed="OnSaveAndGoClicked"
+                   BackgroundColor="{StaticResource Gray600}"
+                   
+        />
+
+            <ImageButton Clicked= "OnPasswordToggleClicked" BorderColor="#939393" IsVisible="True" WidthRequest="25" HorizontalOptions="End">
+                <ImageButton.Source>
+                    <FontImageSource Glyph="&#xE8F4;" FontFamily="MaterialIcons"/>
+                </ImageButton.Source>
+                
+            </ImageButton> 
+        </Grid>
+
+        <VerticalStackLayout Spacing="5">
+
+            
+            <Label LineBreakMode="WordWrap" TextColor="{StaticResource Gray300}"  Text="Do not put your personal information as the password" FontSize="14"/>
+
+            <Label Text="Do not forget this password, without it all your passwords will become inaccessible."
+               FontSize="14"
+                   TextColor="{StaticResource Gray400}"
+               FontAttributes="Italic"
+               />
+        </VerticalStackLayout>
+
+        <HorizontalStackLayout VerticalOptions="End" HorizontalOptions="FillAndExpand" Spacing="50">
+
+            <Button Text="Already have an account?"
+                BackgroundColor="LightGray"
+                TextColor="DarkOrchid"
+                BorderColor="DarkOrchid"
+                BorderWidth="1"
+                Clicked="OnTransferClicked" />
+            
+            <Button Text="Save and go"
+                    HorizontalOptions="End"
+                BackgroundColor="MediumPurple"
+                TextColor="White"
+                Clicked="OnSaveAndGoClicked" />
+            
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

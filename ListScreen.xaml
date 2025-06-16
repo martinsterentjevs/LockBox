@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:LockBox"
+             x:Class="LockBox.ListScreen"
+             Title="ListScreen"
+             Background="DarkGray">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:MfaToFontSizeConverter x:Key="MfaToFontSizeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout BackgroundColor="{StaticResource OffBlack}">
+        
+        <!--AppBar Moment-->
+        <Grid BackgroundColor="Black" Padding="10" HeightRequest="80">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ImageButton Grid.Row="0" Grid.Column="0" x:Name="MenuButton" 
+                         Clicked="Menu_Clicked" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+                <ImageButton.Source>
+                    <FontImageSource Glyph="&#xe5d2;" FontFamily="MaterialIcons"/>
+                </ImageButton.Source>
+            </ImageButton>
+            <Label Grid.Column="0" Grid.ColumnSpan="2" Text="Home" 
+                   TextColor="{StaticResource PrimaryDark}" FontAttributes="Bold" 
+                   HorizontalOptions="CenterAndExpand" 
+                   VerticalOptions="CenterAndExpand" FontSize="36"/>
+            <Grid Grid.Column="2" HorizontalOptions="End">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <ImageButton Grid.Column="0" x:Name="Refresh" HorizontalOptions="End" 
+                             VerticalOptions="CenterAndExpand" Clicked="RefreshList">
+                <ImageButton.Source>
+                    <FontImageSource Glyph="&#xe5d5;" FontFamily='MaterialIcons'/>
+                </ImageButton.Source>
+            </ImageButton>
+            <ImageButton Grid.Column="1" x:Name="Add" HorizontalOptions="End" 
+                         VerticalOptions="CenterAndExpand" Clicked="AddEntry">
+                <ImageButton.Source>
+                    <FontImageSource Glyph="&#xe145;" FontFamily='MaterialIcons'/>
+                </ImageButton.Source>
+            </ImageButton>
+            </Grid>
+        </Grid>
+        <ActivityIndicator IsRunning="{Binding IsLoading}" 
+                           IsVisible="{Binding IsLoading}" 
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Center" 
+                           Color="Blue"/>
+        <ProgressBar Grid.ColumnSpan="2" 
+             Progress="{Binding OtpProgress}" HeightRequest="5" 
+             VerticalOptions="Center" />
+        <CollectionView ItemsSource="{Binding ListItems}">
+            <CollectionView.EmptyView>
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="EmptyNotice" Grid.Row="2" Text="No Entries Found. Add an entry via the '+' on top right" 
+                           TextColor="{StaticResource Secondary}" IsVisible="True" 
+                           FontSize="Title" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                </Grid>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border x:Name="Item" Stroke="{StaticResource PrimaryDarkText}" StrokeThickness="2">
+                        <Grid RowDefinitions="5*, 5*" ColumnDefinitions="4*, 3*, auto" ColumnSpacing="5" 
+                              HorizontalOptions="FillAndExpand" Padding="10" VerticalOptions="Center">
+                            <Label x:Name="service_name" Text="{Binding Serv_name}" FontSize="26" FontAttributes="Bold" 
+                                   TextColor="{StaticResource Gray300}" HorizontalOptions="Start"  VerticalOptions="Center" />
+                            <Label x:Name="email" Text="{Binding Serv_email}" HorizontalOptions="Start" FontSize="Body" 
+                                   TextColor="{StaticResource Gray500}" VerticalOptions="Center" Grid.Row="1" />
+                            <Label x:Name="OTP" Grid.ColumnSpan="2" Grid.RowSpan="1" 
+                                   Text="{Binding OtpCode}" TextColor="{StaticResource SecondaryDarkText}" 
+                                   FontSize="{Binding Serv_mfasec, Converter={StaticResource MfaToFontSizeConverter}}" 
+                                   HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" />
+                            <ImageButton Clicked="OnCopyOptionsClicked" CommandParameter="{Binding .}" CornerRadius="50" 
+                                         Grid.Row="0" Grid.Column="3" HorizontalOptions="End" VerticalOptions="Center" 
+                                         BackgroundColor="Black">
+                                    <ImageButton.Source>
+                                        <FontImageSource Glyph="&#xe14d;" FontFamily="MaterialIcons" Size="15" />
+                                </ImageButton.Source>
+                            </ImageButton>
+                            <ImageButton Grid.Row="1" Grid.Column="3" HorizontalOptions="End" VerticalOptions="Center" 
+                                         Clicked="OnEditClicked" CommandParameter="{Binding Db_id}" CornerRadius="50" 
+                                         BackgroundColor="Black">
+                                <ImageButton.Source>
+                                    <FontImageSource Glyph="&#xe3c9;" FontFamily="MaterialIcons" Size="15"/>
+                                </ImageButton.Source>
+                            </ImageButton>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

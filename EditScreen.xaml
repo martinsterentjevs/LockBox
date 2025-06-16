@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LockBox.EditScreen"
+             Title="EditScreen"
+             BackgroundColor="{StaticResource OffBlack}">
+    <StackLayout>
+        
+    <Grid BackgroundColor="Black" Padding="10" HeightRequest="80">
+        <ImageButton x:Name="Back" Clicked="Back_Clicked" HorizontalOptions="Start" 
+                     MinimumHeightRequest="25" MaximumHeightRequest="25" VerticalOptions="CenterAndExpand">
+            <ImageButton.Source>
+                <FontImageSource Glyph="&#xe5e0;" FontFamily="MaterialIcons"/>
+            </ImageButton.Source>
+        </ImageButton>
+        <Label Text="View/Edit entry" FontSize="Title" TextColor="{StaticResource Primary}" 
+               VerticalOptions="Center" HorizontalOptions="Center"/>
+    </Grid>
+    <Grid Padding="10" RowSpacing="15" ColumnSpacing="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="1"  Text="Title:" TextColor="{StaticResource Gray400}"/>
+        <Entry x:Name="Serv" Placeholder="Name of service/website" PlaceholderColor="{StaticResource Gray400}" 
+               TextColor="{StaticResource Gray100}" BackgroundColor="{StaticResource Gray600}" 
+               MaxLength="255" Grid.Row="2" Grid.ColumnSpan="2" />
+        <Label Grid.Row="3" Text="Email/Username:" TextColor="{StaticResource Gray400}"/>
+        <Entry x:Name="User" Placeholder="E-mail or username" PlaceholderColor="{StaticResource Gray400}" 
+               TextColor="{StaticResource White}" BackgroundColor="{StaticResource Gray600}" 
+               MaxLength="255" Grid.Row="4" Grid.ColumnSpan="2" />
+        <Label Grid.Row="5" Text="Password:" TextColor="{StaticResource Gray400}"/>
+        <Grid Grid.Row="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            <Entry x:Name="Pass" Placeholder="Enter password" PlaceholderColor="{StaticResource Gray400}" 
+                   IsPassword="True" TextColor="{StaticResource White}" BackgroundColor="{StaticResource Gray600}"
+                   HorizontalOptions="Fill" MinimumWidthRequest="300" Grid.Column="0"/>
+            <ImageButton Clicked="OnPasswordToggleClicked" CommandParameter="{x:Reference Pass}" 
+                         IsVisible="True" WidthRequest="25" HorizontalOptions="End" Grid.Column="1">
+                <ImageButton.Source>
+                    <FontImageSource Glyph="&#xE8F4;" FontFamily="MaterialIcons" Color="{StaticResource White}"/>
+                </ImageButton.Source>
+            </ImageButton>
+        </Grid>
+            <Grid Grid.Row="7" Grid.ColumnSpan="2" x:Name="PassGen">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Slider Grid.Column="0" VerticalOptions="Center" 
+                        x:Name="PasswordLengthSlider" HorizontalOptions="FillAndExpand" 
+                        Minimum="16" Maximum="64" Value="16" Margin="1" ValueChanged="OnSliderValueChanged"/>
+                <Label Grid.Column="1" VerticalOptions="Center" HorizontalOptions="End" 
+                         x:Name="SliderValueLabel" Text="{Binding Source={x:Reference PasswordLengthSlider}, Path=Value}"
+                         TextColor="{StaticResource Gray100}"/>
+                <Button Grid.Column="2" VerticalOptions="Center" 
+                    Text="Generate" Padding="5" CornerRadius="8" 
+                    Clicked="GeneratePassword_Clicked" HorizontalOptions="End" 
+                    BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource Gray100}"/>
+            </Grid>
+            <Label Grid.Row="8" Text="MFA:" TextColor="{StaticResource Gray400}"/>
+        <Grid Grid.Row="9">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="9*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Entry x:Name="MFA" Placeholder="If unable to scan, enter prompt here" PlaceholderColor="{StaticResource Gray400}" 
+                   TextColor="{StaticResource White}" BackgroundColor="{StaticResource Gray600}" 
+                   IsPassword="True" HorizontalOptions="Fill" MinimumWidthRequest="300"/>
+            <ImageButton Clicked="OnPasswordToggleClicked" CommandParameter="{x:Reference MFA}" 
+                         IsVisible="True" Grid.Column="1"  WidthRequest="25" HorizontalOptions="End">
+                <ImageButton.Source>
+                    <FontImageSource Glyph="&#xE8F4;" FontFamily="MaterialIcons" Color="{StaticResource White}"/>
+                </ImageButton.Source>
+            </ImageButton>
+        </Grid>
+        <HorizontalStackLayout Grid.Row="10" HorizontalOptions="FillAndExpand" Spacing="15">
+                
+        <Picker x:Name="AlgorithmPicker" Title="Select Algorithm" 
+                HorizontalOptions="Start"
+                BackgroundColor="{StaticResource Gray600}" TextColor="{StaticResource Gray100}" SelectedIndex="0">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>SHA1</x:String>
+                    <x:String>SHA256</x:String>
+                    <x:String>SHA512</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <Button Clicked="GoToScan" WidthRequest="70" Padding="0" 
+                Text="Scan" BackgroundColor="{StaticResource Primary}" HorizontalOptions="End"
+                TextColor="{StaticResource Gray100}" />
+        </HorizontalStackLayout>
+        <Grid Grid.Row="11">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="Delete" Clicked="Delete_Clicked" Grid.Column="0" Background="DarkRed" 
+                    Text="Delete" TextColor="{StaticResource Gray100}" IsVisible="true"/>
+            <Button Grid.Column="2" HorizontalOptions="End"  Text="Save" Clicked="Save_Clicked" 
+                    BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource White}" 
+                    Grid.Row="5" Grid.ColumnSpan="2" />
+        </Grid>
+    </Grid>
+    </StackLayout>
+</ContentPage>

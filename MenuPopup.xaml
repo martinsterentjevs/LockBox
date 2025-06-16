@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="LockBox.MenuPopup">
+    <VerticalStackLayout Padding="10" BackgroundColor="White" WidthRequest="200">
+        <Button Text="Transfer" Clicked="OnTransferClicked" BackgroundColor="Transparent" TextColor="Black"/>
+        <Button Text="About" Clicked="OnAboutClicked" BackgroundColor="Transparent" TextColor="Black"/>
+        <Button Text="Reset App" Clicked="OnResetClicked" BackgroundColor="Transparent" TextColor="Black"/>
+    </VerticalStackLayout>
+</toolkit:Popup>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="LockBox.TransferScreen"
+             Title="TransferScreen"
+             Background="{StaticResource OffBlack}">
+    <VerticalStackLayout Padding="20">
+        <Grid RowSpacing="35">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.ColumnSpan="2" Grid.Row="0" 
+                   Text="Press 'Scan QR Code' to Automatically Set up or Set up manually below." 
+                   TextColor="{StaticResource PrimaryDark}" FontSize="Title" 
+                   HorizontalOptions="Center" VerticalOptions="Center" 
+                   VerticalTextAlignment="Justify" HorizontalTextAlignment="Center"/>
+            <Button Grid.Row="1" Grid.ColumnSpan="2"
+                    Text="Scan QR Code" Clicked="ScanQRCode"/>
+            <Label Grid.Row="2" Grid.ColumnSpan="2"
+                Text="Enter information shown on Transfer view on existing account."
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" TextColor="{StaticResource Secondary}" FontSize="Title"/>
+            <Label Grid.Row="3" Grid.ColumnSpan="2" Text="Double-check all data. Any mistakes will create a different account" 
+                   TextColor="{StaticResource Secondary}" FontSize="16"/>
+            <Entry Grid.Row="4" Grid.ColumnSpan="2"
+                   x:Name="UserId" Placeholder="Username" 
+                   BackgroundColor="{StaticResource Gray600}" TextColor="{StaticResource Gray100}"/>
+            <Entry Grid.Row="5" Grid.ColumnSpan="2" 
+                   x:Name="Password" Placeholder="Current Password (used on other device)" 
+                   BackgroundColor="{StaticResource Gray600}" TextColor="{StaticResource Gray100}"/>
+            <Entry Grid.Row="6" Grid.ColumnSpan="2" 
+                   x:Name="Salt" Placeholder="Salt" 
+                   BackgroundColor="{StaticResource Gray600}" TextColor="{StaticResource Gray100}"/>
+            <Button Grid.Row="7" Grid.Column="1" 
+                    VerticalOptions="End" Text="Restore" Clicked="Restore"/>
+            <Button Grid.Row="7" Grid.Column="0" 
+                    VerticalOptions="End" Text="Cancel" Clicked="Cancel"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

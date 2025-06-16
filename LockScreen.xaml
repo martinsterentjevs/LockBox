@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="LockBox.LockScreen"
+             Title="LockScreen">
+    <Grid IsVisible="True" RowSpacing="20" Padding="15" BackgroundColor="{StaticResource OffBlack}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.ColumnSpan="5" Text="Enter Password:" 
+               FontSize="Title" TextColor="{StaticResource PrimaryDark}" 
+               VerticalOptions="Center" HorizontalOptions="Center"/>
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="5" 
+              VerticalOptions="Center" HorizontalOptions="FillAndExpand" 
+              BackgroundColor="{StaticResource Gray600}">
+            <!-- Password Entry -->
+            <Entry x:Name="UserPassword"
+                    Placeholder="Master Password"
+                    IsPassword="True"
+                    Completed="Login"/>
+
+            <ImageButton Clicked= "OnPasswordToggleClicked" BorderColor="#939393" 
+                         IsVisible="True" WidthRequest="25" HorizontalOptions="End">
+                <ImageButton.Source>
+                    <FontImageSource Glyph="&#xE8F4;" 
+                                  FontFamily="MaterialIcons"
+                                   />
+                </ImageButton.Source>
+            </ImageButton>
+        </Grid>
+
+        <Button Grid.Row="2"  Grid.Column="1" Grid.ColumnSpan="3" Text="Enter" Clicked="Login"/>
+        <!-- Delete Account button      <Button Grid.Row="3"  Grid.Column="1" Grid.ColumnSpan="3" Text="Delete" Clicked="Delete"/>    -->
+    </Grid>
+</ContentPage>
